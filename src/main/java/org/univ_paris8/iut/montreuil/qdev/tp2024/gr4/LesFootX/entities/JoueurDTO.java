@@ -10,7 +10,7 @@ public class JoueurDTO {
    String  pseudo;
    int     annéeNaissance;
    Enum    langues;
-   ArrayList centreInteret;
+   HashSet centreInteret;
 
 
    public JoueurDTO(String nom, String pseudo, int annéeNaissance, Enum langues, HashSet<String> centreInteret) {
@@ -18,7 +18,7 @@ public class JoueurDTO {
       this.pseudo = pseudo;
       this.annéeNaissance = annéeNaissance;
       this.langues = langues;
-      this.centreInteret = new ArrayList<>();
+      this.centreInteret = new HashSet<String>();
    }
 
    public String getNom() {
@@ -53,11 +53,11 @@ public class JoueurDTO {
       this.langues = langues;
    }
 
-   public ArrayList getCentreInteret() {
+   public HashSet getCentreInteret() {
       return centreInteret;
    }
 
-   public void setCentreInteret(ArrayList centreInteret) {
+   public void setCentreInteret(HashSet centreInteret) {
       this.centreInteret = centreInteret;
    }
 
@@ -70,7 +70,19 @@ public class JoueurDTO {
    }
 
    @Override
+   public String toString() {
+      return "JoueurDTO{" +
+              "nom='" + nom + '\'' +
+              ", pseudo='" + pseudo + '\'' +
+              ", annéeNaissance=" + annéeNaissance +
+              ", langues=" + langues +
+              ", centreInteret=" + centreInteret +
+              '}';
+   }
+
+   @Override
    public int hashCode() {
       return Objects.hash(nom, pseudo, annéeNaissance, langues, centreInteret);
    }
 }
+
