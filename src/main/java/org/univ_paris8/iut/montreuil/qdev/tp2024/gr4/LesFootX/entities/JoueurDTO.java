@@ -2,6 +2,7 @@ package org.univ_paris8.iut.montreuil.qdev.tp2024.gr4.LesFootX.entities;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class JoueurDTO {
@@ -9,15 +10,15 @@ public class JoueurDTO {
    String  pseudo;
    int     annéeNaissance;
    Enum    langues;
-   ArrayList centreInteret;
+   HashSet centreInteret;
 
 
-   public JoueurDTO(String nom, String pseudo, int annéeNaissance, Enum langues, ArrayList centreInteret) {
+   public JoueurDTO(String nom, String pseudo, int annéeNaissance, Enum langues, HashSet<String> centreInteret) {
       this.nom = nom;
       this.pseudo = pseudo;
       this.annéeNaissance = annéeNaissance;
       this.langues = langues;
-      this.centreInteret = new ArrayList<>();
+      this.centreInteret = centreInteret;
    }
 
    public String getNom() {
@@ -52,11 +53,11 @@ public class JoueurDTO {
       this.langues = langues;
    }
 
-   public ArrayList getCentreInteret() {
+   public HashSet getCentreInteret() {
       return centreInteret;
    }
 
-   public void setCentreInteret(ArrayList centreInteret) {
+   public void setCentreInteret(HashSet centreInteret) {
       this.centreInteret = centreInteret;
    }
 
