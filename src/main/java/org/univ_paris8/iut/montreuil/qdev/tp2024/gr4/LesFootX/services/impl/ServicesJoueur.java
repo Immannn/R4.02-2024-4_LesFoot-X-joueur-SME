@@ -25,33 +25,29 @@ public class ServicesJoueur implements IServicesJoueur {
     }
 
     @Override
-    public JoueurDTO ajouterJoueur(String prenom, String pseudo, int annéeNaissance, Enum langue, HashSet<String> centresInteret) throws JoueurDejaExistantException, AnneeNaissanceInvalideException, FormatLangueInvalideException, CentresInteretVidesException, NomOuPseudoLongueurException, DoublonsCentresInteretException {
-
-
-
+    public JoueurDTO ajouterJoueur(String prenom, String pseudo, int annéeNaissance, Enum langue, HashSet<String> centresInteret) throws JoueurDejaExistantException, AnneeNaissanceInvalideException, FormatLangueInvalideException, CentresInteretVidesException, NomOuPseudoLongueurException {
         for (JoueurDTO joueur : joueursDTO) {
             if (joueur.getPseudo().equals(pseudo)) {
                 throw new JoueurDejaExistantException();
             }
         }
-
+        for (JoueurDTO joueur : joueursDTO) {
+            if (joueur.getPseudo().length()<3 || joueur.getNom().length()<3 ) {
+                throw new NomOuPseudoLongueurException();
+            }
+        }
 
         if (annéeNaissance < 1900 || annéeNaissance > 2024) {
             throw new AnneeNaissanceInvalideException();
         }
 
-
         if (langue == null) {
             throw new FormatLangueInvalideException();
         }
 
-
         if (centresInteret.isEmpty()) {
             throw new CentresInteretVidesException();
         }
-
-
-
 
         JoueurDTO nouveauJoueur = new JoueurDTO(prenom, pseudo, annéeNaissance, langue, centresInteret);
         joueursDTO.add(nouveauJoueur);

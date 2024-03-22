@@ -18,7 +18,7 @@ public class JoueurDTO {
       this.pseudo = pseudo;
       this.annéeNaissance = annéeNaissance;
       this.langues = langues;
-      this.centreInteret = new HashSet<String>();
+      this.centreInteret = centreInteret;
    }
 
    public String getNom() {

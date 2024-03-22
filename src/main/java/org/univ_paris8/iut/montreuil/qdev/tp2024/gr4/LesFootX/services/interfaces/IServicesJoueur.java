@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public interface IServicesJoueur {
 
-    public JoueurDTO ajouterJoueur(String nom, String pseudo, int annéeNaissance, Enum langue, HashSet<String> listeInteret) throws JoueurDejaExistantException, AnneeNaissanceInvalideException, FormatLangueInvalideException, CentresInteretVidesException, NomOuPseudoLongueurException, DoublonsCentresInteretException;
+    public JoueurDTO ajouterJoueur(String nom, String pseudo, int annéeNaissance, Enum langue, HashSet<String> centreInteret) throws JoueurDejaExistantException, AnneeNaissanceInvalideException, FormatLangueInvalideException, CentresInteretVidesException, NomOuPseudoLongueurException;
 
 
 }
