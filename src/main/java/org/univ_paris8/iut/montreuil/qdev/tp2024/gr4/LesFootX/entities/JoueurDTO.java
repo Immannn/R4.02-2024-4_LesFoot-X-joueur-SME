@@ -70,7 +70,19 @@ public class JoueurDTO {
    }
 
    @Override
+   public String toString() {
+      return "JoueurDTO{" +
+              "nom='" + nom + '\'' +
+              ", pseudo='" + pseudo + '\'' +
+              ", annéeNaissance=" + annéeNaissance +
+              ", langues=" + langues +
+              ", centreInteret=" + centreInteret +
+              '}';
+   }
+
+   @Override
    public int hashCode() {
       return Objects.hash(nom, pseudo, annéeNaissance, langues, centreInteret);
    }
 }
+
