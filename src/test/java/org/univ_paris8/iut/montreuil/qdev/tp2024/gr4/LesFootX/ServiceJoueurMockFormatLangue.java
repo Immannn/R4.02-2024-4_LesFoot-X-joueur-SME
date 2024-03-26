@@ -11,7 +11,7 @@ import org.univ_paris8.iut.montreuil.qdev.tp2024.gr4.LesFootX.utiles.exceptions.
 public class ServiceJoueurMockFormatLangue implements IServicesJoueur {
 
     @Override
-    public JoueurDTO ajouterJoueur(String nom, String pseudo, int annéeNaissance, Enum langue, HashSet<String> centreInteret) throws FormatLangueInvalideException{
+    public JoueurDTO ajouterJoueur(String nom, String pseudo, int annéeNaissance, Langues langue, HashSet<String> centreInteret) throws FormatLangueInvalideException{
         if (!(langue instanceof Langues)) {
             throw new FormatLangueInvalideException("Le format de la langue est invalide.");
         }

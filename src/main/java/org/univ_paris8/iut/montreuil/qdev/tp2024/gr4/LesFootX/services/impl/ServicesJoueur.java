@@ -1,6 +1,5 @@
 package org.univ_paris8.iut.montreuil.qdev.tp2024.gr4.LesFootX.services.impl;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.univ_paris8.iut.montreuil.qdev.tp2024.gr4.LesFootX.entities.JoueurDTO;
 import org.univ_paris8.iut.montreuil.qdev.tp2024.gr4.LesFootX.services.interfaces.IServicesJoueur;
 import org.univ_paris8.iut.montreuil.qdev.tp2024.gr4.LesFootX.utiles.Enum.Langues;
@@ -11,48 +10,44 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ServicesJoueur implements IServicesJoueur {
-    private static ServicesJoueur uniqueInstance = null ;
-    ArrayList<JoueurDTO> joueursDTO ;
+    private static ServicesJoueur uniqueInstance = null;
+    private ArrayList<JoueurDTO> joueursDTO;
 
-    public ServicesJoueur() {
+    private ServicesJoueur() {
         this.joueursDTO = new ArrayList<>();
     }
 
-    public static ServicesJoueur getInstance(){
-        if(uniqueInstance == null)
+    public static ServicesJoueur getInstance() {
+        if (uniqueInstance == null) {
             uniqueInstance = new ServicesJoueur();
+        }
         return uniqueInstance;
     }
 
     @Override
-    public JoueurDTO ajouterJoueur(String prenom, String pseudo, int annéeNaissance, Enum langue, HashSet<String> centresInteret) throws JoueurDejaExistantException, AnneeNaissanceInvalideException, FormatLangueInvalideException, CentresInteretVidesException, NomOuPseudoLongueurException {
-        for (JoueurDTO joueur : joueursDTO) {
-            if (joueur.getPseudo().equals(pseudo)) {
-                throw new JoueurDejaExistantException();
-            }
-        }
-        for (JoueurDTO joueur : joueursDTO) {
-            if (joueur.getPseudo().length()<3 || joueur.getNom().length()<3 ) {
-                throw new NomOuPseudoLongueurException();
-            }
+    public JoueurDTO ajouterJoueur(String nom, String pseudo, int anneeNaissance, Langues langue, HashSet<String> centresInteret) throws JoueurDejaExistantException, AnneeNaissanceInvalideException, FormatLangueInvalideException, CentresInteretVidesException, NomOuPseudoLongueurException {
+        if (joueursDTO.stream().anyMatch(joueur -> joueur.getPseudo().equals(pseudo))) {
+            throw new JoueurDejaExistantException("Le pseudo choisi est déjà utilisé par un autre joueur.");
         }
 
-        if (annéeNaissance < 1900 || annéeNaissance > 2024) {
-            throw new AnneeNaissanceInvalideException();
+        if (nom.length() < 3 || pseudo.length() < 3) {
+            throw new NomOuPseudoLongueurException("Le nom et le pseudo doivent contenir au moins 3 caractères.");
+        }
+
+        if (anneeNaissance < 1900 || anneeNaissance > LocalDate.now().getYear()) {
+            throw new AnneeNaissanceInvalideException("L'année de naissance " + anneeNaissance + " est invalide.");
         }
 
         if (langue == null) {
-            throw new FormatLangueInvalideException();
+            throw new FormatLangueInvalideException("Le format de la langue est invalide.");
         }
 
-        if (centresInteret.isEmpty()) {
-            throw new CentresInteretVidesException();
+        if (centresInteret == null || centresInteret.isEmpty()) {
+            throw new CentresInteretVidesException("La liste des centres d'intérêt ne peut pas être vide.");
         }
 
-        JoueurDTO nouveauJoueur = new JoueurDTO(prenom, pseudo, annéeNaissance, langue, centresInteret);
+        JoueurDTO nouveauJoueur = new JoueurDTO(nom, pseudo, anneeNaissance, langue, centresInteret);
         joueursDTO.add(nouveauJoueur);
         return nouveauJoueur;
     }
-
 }
-
